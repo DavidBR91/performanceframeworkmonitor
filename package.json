@@ -1,0 +1,46 @@
+{
+    "author":"",
+    "name":"performanceframeworkmonitor",
+    "description":"monitor for performanceFramework",
+    "version":"0.0.1",
+    "author":{
+        "name":"OIL Telefonica"
+    },
+    "contributors":[
+        {
+            "name":"Fernando Godino",
+            "email":"fgodino@conwet.com"
+        },
+        {
+            "name":"Obaib el Maallem",
+            "email":"oelmaallem@conwet.com"
+        },
+        {
+            "name":"David Barriga",
+            "email":"dbarriga@conwet.com"
+        },
+        {
+            "name":"Aitor Magan",
+            "email":"amagan@conwet.com"
+        }
+    ],
+    "repository":{
+        "type":"git",
+        "url":"git://github.com/DavidBR91/performanceframeworkmonitor.git"
+    },
+    "main": "./monitor.js",
+    "license": "AGPL",
+    "engine": {
+        "node": "0.6.6"
+    },
+    "_id": "performanceframeworkmonitor@0.0.1",
+    "devDependencies": {},
+    "optionalDependencies": {},
+    "engines": {
+        "node": "*"
+    },
+    "_engineSupported": true,
+    "_npmVersion": "1.1.4",
+    "_nodeVersion": "v0.6.12",
+    "_defaultsLoaded": true
+}
