@@ -2,9 +2,8 @@ var childProcess = require('child_process');
 var utils = require('./utils.js');
 var net = require('net');
 var os = require('os');
-var cluster = require('cluster');
 
-var paths = new Array();
+var paths = [];
 
 for (var i = 2; i < process.argv.length; i++) {
     paths.push(process.argv[i]);
@@ -15,37 +14,37 @@ paths = paths.sort();
 var names = [];
 names = splitAndName(paths);
 
+var paths = new Array();
+
+for (var i = 2; i < programslength; i++) {
+    paths.push(programs.argv[i]);
+}
+
+paths = paths.sort();
+
+var names = [];
+var pid;
+var pids = [];
+names = splitAndName(paths);
+for (var i = 0; i < paths.length; i++) {
+    var aux = new Array()
+    pid = createAgent(paths[i]);
+    console.log('A new program has been launched with PID: ' + pid);
+
+    setTimeout(function () {
+        aux = utils.getchildProcesses(pid);
+        aux.push(pid);
+        pids.push(aux);
+    }, 1000);
+}
+
 var server = net.createServer(function (connection, programs) {
 
-    var pid;
     var monitorInterval;
-    var pids = new Array();
 
     if (server.connections === 1) {
 
         console.log('Client open the connection...');
-
-        var paths = new Array();
-
-        for (var i = 2; i < programslength; i++) {
-            paths.push(programs.argv[i]);
-        }
-
-        paths = paths.sort();
-
-        var names = [];
-        names = splitAndName(paths);
-        for (var i = 0; i < paths.length; i++) {
-            var aux = new Array()
-            pid = createAgent(paths[i]);
-            console.log('A new program has been launched with PID: ' + pid);
-
-            setTimeout(function () {
-                aux = utils.getchildProcesses(pid);
-                aux.push(pid);
-                pids.push(aux);
-            }, 1000);
-        }
 
         //Monitoring an agent sending the client information about the usage of CPU and RAM
         monitorInterval = setInterval(function () {
@@ -68,7 +67,6 @@ var server = net.createServer(function (connection, programs) {
         connection.on('end', function () {
             console.log('Client closed connection...');
             clearInterval(monitorInterval);
-            process.kill(pid);
             connection.end();
 
         });
@@ -82,7 +80,7 @@ var server = net.createServer(function (connection, programs) {
  * Creates an agent
  * @return The PID of the agent
  */
-var createAgent = function (path) {
+function createAgent(path) {
     var child = childProcess.fork(path);
     var pid = child.pid;
     return pid;
